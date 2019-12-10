@@ -1,0 +1,17 @@
+.ropeproject
+.idea
+.vscode
+.project
+.ipynb_checkpoints
+.DS_Store
+.pydevproject
+*.pyc
+*.nfs*
+
+**/data/*_hdf5_2048*
+**/data/ModelNet40/
+**/data/shape_net_core_uniform_samples_2048/
+log/
+dump/
+*.o
+*.so
