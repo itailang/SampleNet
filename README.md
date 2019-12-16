@@ -16,7 +16,7 @@ This approximation scheme leads to consistently good results on various applicat
 If you find our work useful in your research, please consider citing:
 
 	@article{lang2019samplenet,
-	  title={Learning to Sample},
+	  title={SampleNet: Differentiable Point Cloud Sampling},
 	  author={Lang, Itai and Manor, Asaf and Avidan, Shai},
 	  journal={arXiv preprint arXiv:1912.03663},
 	  year={2019}
