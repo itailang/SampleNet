@@ -416,6 +416,7 @@ class Action:
     def test_1(self, model, testloader, device, epoch):
         rotation_errors = []
         trans_errs = []
+        consistency_errors = []
 
         with torch.no_grad():
             for i, data_and_shape in enumerate(tqdm(testloader)):
@@ -439,6 +440,9 @@ class Action:
                     model, sampled_data, device, epoch
                 )
 
+                consistency = self.compute_sampling_consistency(sampled_data, device)
+                consistency_errors.append(consistency.item())
+
                 rotation_error = pcrnet_loss_info["rot_err"]
                 trans_err = pcrnet_loss_info["trans_err"]
 
@@ -457,6 +461,7 @@ class Action:
         # Compute Precision curve and AUC.
         rotation_errors = np.array(rotation_errors)
         trans_errs = np.array(trans_errs)
+        consistency_errors = np.array(consistency_errors)
         n_samples = len(testloader)
         x = np.arange(0.0, 180.0, 0.5)
         y = np.zeros(len(x))
@@ -474,6 +479,8 @@ class Action:
         print(f"AUC = {auc}")
         print(f"Mean rotation Error = {np.mean(rotation_errors)}")
         print(f"STD rotation Error = {np.std(rotation_errors)}")
+        print(f"Mean consistency Error = {np.mean(consistency_errors)}")
+        print(f"STD consistency Error = {np.std(consistency_errors)}")
 
     def non_learned_sampling(self, model, data, device):
         """Sample p1 point cloud using FPS."""
@@ -530,6 +537,23 @@ class Action:
 
         return samplenet_loss, sampled_data, samplenet_loss_info
 
+    def compute_sampling_consistency(self, sampled_data, device):
+        p0s, p1s, igt = sampled_data
+        p0s = p0s.to(device)  # template
+        p1s = p1s.to(device)  # source
+
+        gt_transform = QuaternionTransform.from_dict(igt, device)
+        # p1s_est = gt_transform.rotate(p0s)
+        p0s_est = gt_transform.inverse().rotate(p1s)
+
+        # cost_p0_p1, cost_p1_p0 = ChamferDistance()(p1s, p1s_est)
+        cost_p0_p1, cost_p1_p0 = ChamferDistance()(p0s, p0s_est)
+        cost_p0_p1 = torch.mean(cost_p0_p1)
+        cost_p1_p0 = torch.mean(cost_p1_p0)
+
+        consistency = cost_p0_p1 + cost_p1_p0
+        return consistency
+
     def compute_pcrnet_loss(self, model, data, device, epoch):
         p0, p1, igt = data
         p0 = p0.to(device)  # template
@@ -547,7 +571,6 @@ class Action:
         p1_est = est_transform.rotate(p0)
 
         cost_p0_p1, cost_p1_p0 = ChamferDistance()(p1, p1_est)
-
         cost_p0_p1 = torch.mean(cost_p0_p1)
         cost_p1_p0 = torch.mean(cost_p1_p0)
 
@@ -604,7 +627,7 @@ def get_datasets(args):
             transforms=transforms,
             train=False,
             download=False,
-            cinfo=cinfo,
+            cinfo=None,
             folder=args.datafolder,
             include_shapes=True,
         )
