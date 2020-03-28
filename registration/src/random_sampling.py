@@ -25,16 +25,20 @@ class RandomSampler(torch.nn.Module):
         self.output_shape = output_shape
 
     def forward(self, x: torch.Tensor):
-        # x shape should be B x 3 x N
-        idx = torch.randint(
-            self.num_out_points,
-            size=[1, self.num_out_points],
-            dtype=torch.int32,
-            device=x.device,
-        )
-
         if self.input_shape == "bnc":
             x = x.permute(0, 2, 1).contiguous()
+
+        B, _, N  = x.shape
+        idx = torch.zeros(B, self.num_out_points, dtype=torch.int32, device=x.device)
+        for i in range(B):
+            rand_perm = torch.randperm(
+                N,
+                dtype=torch.int32,
+                device=x.device
+            )
+            idx[i] = rand_perm[:self.num_out_points]
+
+
         y = gather(x, idx)
         if self.output_shape == "bnc":
             y = y.permute(0, 2, 1).contiguous()
