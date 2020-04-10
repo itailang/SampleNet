@@ -38,7 +38,12 @@ These scripts train and evaluate an Autoencoder model with complete point clouds
 
 ### Data Set
 
-Point clouds of <a href="https://www.shapenet.org/" target="_blank">ShapeNetCore</a> models in `ply` files (provided by <a href="https://github.com/optas/latent_3d_points" target="_blank">Achlioptas et al.</a>) will be automatically downloaded (1.4GB) on the first training of an Autoencoder model. Each point cloud contains 2048 points, uniformly sampled from a shape surface. The data will be downloaded to the folder `reconstruction/data/shape_net_core_uniform_samples_2048`.    
+Point clouds of <a href="https://www.shapenet.org/" target="_blank">ShapeNetCore</a> models in `ply` files (provided by <a href="https://github.com/optas/latent_3d_points" target="_blank">Achlioptas et al.</a>) will be automatically downloaded (1.4GB) on the first training of an Autoencoder model. Each point cloud contains 2048 points, uniformly sampled from a shape surface. The data will be downloaded to the folder `reconstruction/data/shape_net_core_uniform_samples_2048`.
+
+Alternatively, you can download the data before training by using:
+```bash
+sh download_data.sh
+```     
 
 ### Autoencoder
 
