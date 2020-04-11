@@ -1,23 +1,17 @@
 ## Installation
 We strongly recommend working with <a href="https://hub.docker.com/search/?type=edition&offering=community" target="_blank">Docker Engine</a> and <a href="https://github.com/NVIDIA/nvidia-docker/tree/master">Nvidia-Docker</a>.
+At this moment, the container can only run on a CUDA (_linux/amd64_) enabled machine due to specific compiled ops from <a href="https://github.com/erikwijmans/Pointnet2_PyTorch">Pointnet2_PyTorch</a>.
 
-The _Dockerfile_ in this folder can be used for building a complete environment including ops compilation. Alternatively, it can be used as a reference for the necessary steps for installation.
-
-### Build the Docker image
+### Pull and run the Docker container
 ```bash
-docker build -t samplenet_torch_image .
-```
-
-### Run a Docker container
-```bash
-docker run --runtime nvidia -v $(pwd):/workspace/project -it --name samplenet_registration samplenet_torch_image
+docker pull asafmanor/pytorch:samplenetreg_torch1.4
+docker run --runtime nvidia -v $(pwd):/workspace/ -it --name samplenetreg asafmanor/pytorch:samplenetreg_torch1.4
 ```
 
 ## Usage
 ### Data preparation
 Create the 'car' dataset (ModelNet40 data will automatically be downloaded to `data/modelnet40_ply_hdf5_2048` if needed) and log directories:
 ```bash
-cd project
 mkdir log
 mkdir log/baseline
 python data/create_dataset_torch.py
@@ -52,3 +46,4 @@ Additional options for training and evaluating can be found using `python main.p
 
 ## Acknowledgment
 This code builds upon the code provided in <a href="https://github.com/hmgoforth/PointNetLK">PointNetLK</a>, <a href="https://github.com/erikwijmans/Pointnet2_PyTorch">Pointnet2_PyTorch</a> and <a href="https://github.com/unlimblue/KNN_CUDA">KNN_CUDA</a>. We thank the authors for sharing their code.
+
