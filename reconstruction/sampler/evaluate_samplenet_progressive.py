@@ -90,7 +90,7 @@ reset_tf_graph()
 ae = SampleNetProgressivePointNetAE(conf.experiment_name, conf)
 ae.restore_model(train_dir, epoch=flags.restore_epoch, verbose=True)
 
-n_input_points = conf.n_samp[0]
+n_input_points = conf.n_input[0]
 n_sample_points = conf.n_samp[0]
 
 # create evaluation dir
@@ -106,7 +106,7 @@ if not osp.exists(file_path):
     # sample point clouds
     sampled_pc, sample_idx = ae.get_samples(
         pc_data_test.point_clouds
-    )  # SampleNetProgressive sampled points
+    )  # Complete point cloud, ordered by SampleNetProgressive
 
     # save sampled point clouds
     np.save(file_path, sampled_pc)
@@ -176,7 +176,7 @@ if flags.visualize_results:
         title="Complete input point cloud",
     )
     plot_3d_point_cloud(
-        sampled_pc[i], in_u_sphere=True, title="SampleNetProgressive sampled points"
+        sampled_pc[i][:n_sample_points], in_u_sphere=True, title="SampleNetProgressive sampled points"
     )
     plot_3d_point_cloud(
         reconstructions[i],
