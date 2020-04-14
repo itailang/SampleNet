@@ -57,12 +57,14 @@ To evaluate the Autoencoder model, use:
 python autoencoder/evaluate_ae.py --train_folder log/autoencoder
 ```
 
+This evaluation script saves the reconstructed point clouds from complete input point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction). The results are saved to the `train_folder`.
+
 To evaluate reconstruction with FPS sampled points (with sample size 64 in this example), use:
 ```bash
 python autoencoder/evaluate_ae.py --train_folder log/autoencoder --use_fps 1 --n_sample_points 64
 ```
 
-This evaluation script saves the reconstructed point clouds from complete input point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction). The results are saved to the `train_folder`.
+This evaluation script saves the sampled point clouds, sample indices and reconstructed point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction). It also computes the normalized reconstruction error, as explained in the paper. The results are saved to the `train_folder`.
 
 ### SampleNet
 To train SampleNet (with sample size 64 in this example), using an existing Autoencoder model as the task network (provided in `ae_folder` argument), use:
@@ -75,7 +77,7 @@ To evaluate reconstruction with SampleNet's sampled points (with sample size 64 
 python sampler/evaluate_samplenet.py --train_folder log/SampleNet64
 ```
 
-This evaluation script saves the sampled point clouds, sample indices and reconstructed point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction). It also computes the normalized reconstruction error, as explained in the paper. The results are saved to the `train_folder`.
+This script operates similarly to the evaluation script for the Autoencoder with FPS sampled points.
 
 ### SampleNetProgressive
 To train SampleNetProgressive, using an existing Autoencoder model as the task network (provided in `ae_folder` argument), use:
@@ -88,7 +90,7 @@ To evaluate reconstruction with SampleNetProgressive's sampled points (with samp
 python sampler/evaluate_samplenet_progressive.py --n_sample_points 64 --train_folder log/SampleNetProgressive
 ```
 
-This script operates similarly to the evaluation script for SampleNet. 
+This script operates similarly to the evaluation script for the Autoencoder with FPS sampled points.
 
 ### Visualization
 You can visualized point clouds (input, reconstructed, or sampled) by adding the flag `--visualize_results` to the evaluation script of the Autoencoder, SampleNet or SampleNetProgressive.  
