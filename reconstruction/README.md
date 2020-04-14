@@ -52,12 +52,17 @@ To train an Autoencoder model, use:
 python autoencoder/train_ae.py --train_folder log/autoencoder
 ```
 
-To evaluate an Autoencoder model, use:
+To evaluate the Autoencoder model, use:
 ```bash
 python autoencoder/evaluate_ae.py --train_folder log/autoencoder
 ```
 
-This evaluation script saves the reconstructed point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction).  The results are saved to the `train_folder`.
+To evaluate reconstruction with FPS sampled points (with sample size 64 in this example), use:
+```bash
+python autoencoder/evaluate_ae.py --train_folder log/autoencoder --use_fps 1 --n_sample_points 64
+```
+
+This evaluation script saves the reconstructed point clouds from complete input point clouds of the test set, and the reconstruction error per point cloud (Chamfer distance between the input and reconstruction). The results are saved to the `train_folder`.
 
 ### SampleNet
 To train SampleNet (with sample size 64 in this example), using an existing Autoencoder model as the task network (provided in `ae_folder` argument), use:

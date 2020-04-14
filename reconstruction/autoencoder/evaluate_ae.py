@@ -208,6 +208,13 @@ if flags.visualize_results:
         in_u_sphere=True,
         title="Complete input point cloud",
     )
+    if flags.use_fps:
+        plot_3d_point_cloud(
+            sampled_pc[i],
+            in_u_sphere=True,
+            title="FPS sampled points"
+        )
+    reconstruction_title = "Reconstruction from FPS points" if flags.use_fps else "Reconstruction from complete input"
     plot_3d_point_cloud(
-        reconstructions[i], in_u_sphere=True, title="Reconstruction from complete input"
+        reconstructions[i], in_u_sphere=True, title=reconstruction_title
     )
