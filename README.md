@@ -1,10 +1,10 @@
 # SampleNet: Differentiable Point Cloud Sampling
-Created by Itai Lang, Asaf Manor and Shai Avidan from Tel-Aviv University.
+Created by Itai Lang, Asaf Manor and Shai Avidan from Tel Aviv University.
 
 ![teaser](https://github.com/itailang/SampleNet/blob/master/doc/teaser.png)
 
 ## Introduction
-This work is based on our [arXiv tech report](https://arxiv.org/abs/1912.03663). Please read it for more information.
+This work is based on our [arXiv tech report](https://arxiv.org/abs/1912.03663). Please read it for more information. You are also welcome to watch the [oral talk](https://youtu.be/wOKlqnJ0XcE) from CVPR 2020.
 
 There is a growing number of tasks that work directly on point clouds. As the size of the point cloud grows, so do the computational demands of these tasks. A possible solution is to sample the point cloud first. Classic sampling approaches, such as farthest point sampling (FPS), do not consider the downstream task. A recent work showed that learning a task-specific sampling can improve results significantly. However, the proposed technique did not deal with the non-differentiability of the sampling operation and offered a workaround instead.
 
