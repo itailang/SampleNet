@@ -15,11 +15,12 @@ This approximation scheme leads to consistently good results on various applicat
 ## Citation
 If you find our work useful in your research, please consider citing:
 
-	@article{lang2019samplenet,
+	@article{lang2020samplenet,
 	  title={SampleNet: Differentiable Point Cloud Sampling},
 	  author={Lang, Itai and Manor, Asaf and Avidan, Shai},
-	  journal={arXiv preprint arXiv:1912.03663},
-	  year={2019}
+	  journal={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+	  pages = {7578--7588},
+	  year={2020}
 	}
 
 ## Installation and usage
