@@ -257,7 +257,9 @@ if __name__ == "__main__":
     propagated_features = propagated_features.cpu().detach().numpy()
 
     # replace Query and Point roles, reduce temperature:
-    propagator.sigma = torch.tensor(0.1 ** 2, dtype=torch.float32)
+    state_dict = propagator.state_dict()
+    state_dict['_temperature'] = torch.tensor(0.1, dtype=torch.float32)
+    propagator.load_state_dict(state_dict)
     projected_points = propagator.project(query_cloud_pl, point_cloud_pl)
     projected_points = projected_points.cpu().detach().numpy()
 
