@@ -1,7 +1,7 @@
 # SampleNet: Differentiable Point Cloud Sampling
-Created by Itai Lang, Asaf Manor and Shai Avidan from Tel Aviv University.
+Created by [Itai Lang](https://itailang.github.io/), [Asaf Manor](https://www.linkedin.com/in/asaf-manor-446979101/), and [Shai Avidan](http://www.eng.tau.ac.il/~avidan/) from Tel Aviv University.
 
-![teaser](https://github.com/itailang/SampleNet/blob/master/doc/teaser.png)
+![teaser](./doc/teaser.png)
 
 ## Introduction
 This work is based on our [arXiv tech report](https://arxiv.org/abs/1912.03663). Please read it for more information. You are also welcome to watch the [oral talk](https://youtu.be/wOKlqnJ0XcE) from CVPR 2020.
